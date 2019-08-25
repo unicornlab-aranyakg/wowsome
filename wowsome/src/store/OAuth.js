@@ -11,16 +11,15 @@ const initialState = {
 export const actionCreators = {
   requestAccessTokenFromBlizzardAPI: () => async dispatch => {
     try {
-      const CLIENT_ID = 'dd9e09fec1fa4dbea73cbef04c07d857';
-      const CLIENT_SECRET = 'zhnWVw9EJY0XEdqDRvpOT0qxNEBimQ5K';
-      const url = await axios
+      const CLIENT_ID = "dd9e09fec1fa4dbea73cbef04c07d857";
+      const CLIENT_SECRET = "zhnWVw9EJY0XEdqDRvpOT0qxNEBimQ5K";
+      await axios
         .request({
           url: "/oauth/token",
           method: "post",
           baseURL: encodeURI("https://us.battle.net/"),
           headers: {
-            Authorization:
-              "Basic " + btoa(CLIENT_ID + ":" + CLIENT_SECRET)
+            Authorization: "Basic " + btoa(CLIENT_ID + ":" + CLIENT_SECRET)
           },
           data: qs.stringify({
             grant_type: "client_credentials"
@@ -39,6 +38,12 @@ export const actionCreators = {
 };
 
 export const reducer = (state = initialState, action) => {
-  state = action;
-  return state;
+  switch (action.type) {
+    case "OAuth":
+      return Object.assign({}, state, {
+        access_token: action.access_token
+      });
+    default:
+      return state;
+  }
 };

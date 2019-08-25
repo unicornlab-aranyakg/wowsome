@@ -6,19 +6,14 @@ import { actionCreators } from "./store/OAuth";
 class DisplayOAuthFields extends Component {
   async componentDidMount() {
     await this.props.requestAccessTokenFromBlizzardAPI();
-    console.log("OAUTH: ", this.props);
   }
 
   render() {
-    return (
-      <div>
-        <p>OAUTH</p>
-      </div>
-    );
+    return <div></div>;
   }
 }
 
 export default connect(
-  state => state.data,
+  state => state,
   dispatch => bindActionCreators(actionCreators, dispatch)
 )(DisplayOAuthFields);
