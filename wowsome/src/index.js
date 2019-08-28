@@ -14,8 +14,8 @@ import { Provider } from "react-redux";
 //import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 //Imported Classes
-import OAuth from "./OAuth";
-import ApplicationLayout from "./App";
+
+import App from "./app/App";
 
 const rootElement = document.getElementById("root");
 const initialState = window.initialReduxState;
@@ -24,10 +24,7 @@ const store = configureStore(initialState); //initiate store here
 ReactDOM.render(
   <Provider store={store}>
     <div>
-      <OAuth />
-    </div>
-    <div>
-      <ApplicationLayout />
+      <App />
     </div>
   </Provider>,
   rootElement

@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+
+body {
+    font-family: 'Josefin Sans', cursive;
+    background-image: url("https://i.pinimg.com/originals/aa/8a/88/aa8a8820d2da4f82eb8c36bc9ed259c3.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+
+}
+
+.navbar-brand-text {
+    font-size: 30px;
+}
+
+.navbar-label-text {
+    font-weight: bold;
+}
+
+.characterInfoBG {
+    background-color: rgb(7, 54, 87, 0.575);
+    border-radius: 25px;
+    border-style: solid;
+    border-width: 5px 0px 0px 5px;
+    border-color: rgba(100, 94, 158, 0.575);
+}
+
+.titleText {
+    color: gold;
+}
+
+.valueText {
+    color: white;
+}
+
+.renderImg {
+    height: 500px;
+    width: 100%;
+    object-fit: cover;
+    opacity: 0.9;
+}
