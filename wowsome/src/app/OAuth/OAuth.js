@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { actionCreators } from "./store/OAuth";
+import { actionCreators } from "../../store/OAuth";
 
 class DisplayOAuthFields extends Component {
   async componentDidMount() {

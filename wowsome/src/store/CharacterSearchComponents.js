@@ -1,17 +1,21 @@
+const initialStateType = "CHAR::INITIAL_STATE";
 const regionSelectionChangedType = "REGION_CHANGED";
 const regionSelectionRealmChangedType = "REALM_CHANGED";
 const characterNameChangedType = "CHARACTER_NAME_CHANGED";
 const characterDataReceivedType = "CHARACTER_DATA_RECEIVED";
+const characterMediaReceivedType = "MEDIA_IS_RECEIVED";
 
-const initialState = {
-  type: "navbar-search",
-  characterData: {},
+export const initialState = {
+  type: initialStateType,
+  isLoaded: false,
+  isTyping: true,
+  data: {},
+  mediaData: {},
   region: "eu",
   realm: "kilrogg",
   characterName: "alchemy",
   regionList: { option1: "eu", option2: "us" },
-  realmList: { option1: "kilrogg", option2: "runetotem", option3: "nagrand" },
-  isLoaded: false
+  realmList: { option1: "kilrogg", option2: "runetotem", option3: "nagrand" }
 };
 /*
   Using https://cors-anywhere.herokuapp.com/ to get around CORS.
@@ -21,12 +25,13 @@ const initialState = {
 */
 export const actionCreators = {
   getCharacterData: input => async dispatch => {
+    console.log("INPUT", input);
     try {
       const url =
         "https://cors-anywhere.herokuapp.com/https://eu.api.blizzard.com/profile/wow/character/" +
-        input.Navbar.realm +
+        input.CharacterSearchComponents.realm +
         "/" +
-        input.Navbar.characterName +
+        input.CharacterSearchComponents.characterName +
         "?namespace=profile-eu&locale=en_US&access_token=" +
         input.OAuth.access_token;
       console.log(url);
@@ -49,6 +54,11 @@ export const actionCreators = {
               payload: { response: json, isLoaded: true }
             });
           }
+          return json;
+        })
+        .then(function(json) {
+          //Seconday calls here
+          input.getCharacterMediaData(json, input.OAuth.access_token);
         });
     } catch (E) {
       console.log("ERROR: ", E.response);
@@ -70,24 +80,47 @@ export const actionCreators = {
     type: characterNameChangedType,
     payload: input.toLowerCase()
   }),
-  setCharacterData: input => ({
-    type: characterDataReceivedType,
-    payload: input
-  })
+  getCharacterMediaData: (input, token) => async dispatch => {
+    const mediaUrl = input.media.href;
+    const accessToken = "&access_token=" + token;
+    const myUrl = mediaUrl + accessToken;
+    let promise = await fetch(myUrl);
+    let json = await promise.json();
+    //console.log("Media url", myUrl, "JSON: ", json);
+    dispatch({
+      type: characterMediaReceivedType,
+      payload: json
+    });
+  }
 };
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case regionSelectionChangedType:
-      return Object.assign({}, state, { region: action.payload });
+      return Object.assign({}, state, {
+        region: action.payload,
+        isTyping: true
+      });
     case regionSelectionRealmChangedType:
-      return Object.assign({}, state, { realm: action.payload });
+      return Object.assign({}, state, {
+        realm: action.payload,
+        isTyping: true
+      });
     case characterNameChangedType:
-      return Object.assign({}, state, { characterName: action.payload });
+      return Object.assign({}, state, {
+        characterName: action.payload,
+        isTyping: true
+      });
     case characterDataReceivedType:
       return Object.assign({}, state, {
-        characterData: action.payload.response,
-        isLoaded: action.payload.isLoaded
+        data: action.payload.response,
+        isLoaded: action.payload.isLoaded,
+        isTyping: false
+      });
+    case characterMediaReceivedType:
+      return Object.assign({}, state, {
+        mediaData: action.payload,
+        type: characterDataReceivedType
       });
     default:
       return state;
