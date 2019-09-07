@@ -1,10 +1,32 @@
-@import url("https://fonts.googleapis.com/css?family=Bangers&display=swap");
-@import url("https: //fonts.googleapis.com/css?family=Cinzel&display=swap");
+#navbar-icon {
+    height: 4rem;
+}
 
+.custom-toggler-icon {
+    color: #339af0;
+}
 
+.navbar {
+    letter-spacing: .1rem;
+    background: lightskyblue;
+    opacity: 0.9;
+}
 
-.infoText {
+.search-button {
+    padding-top: 2rem;
+    color: #EF5979;
+}
 
-    font-family: 'Cinzel';
-    color: black;
+.box-adjust {
+    width: 10rem;
+}
+
+.navbar-nav li {
+    padding-right: 10rem;
+    color: #EF5979;
+}
+
+.navbar-title {
+    letter-spacing: .2rem;
+    color: #EF5979;
 }

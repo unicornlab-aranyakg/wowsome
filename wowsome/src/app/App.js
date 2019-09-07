@@ -5,6 +5,7 @@ import Navbar from "./navigation/Navbar";
 import CharacterInfo from "./screen/CharacterInfo";
 import CharacterMedia from "./screen/CharacterMedia";
 import OAuth from "./OAuth/OAuth";
+import "../css/screen/screen.css";
 
 class ApplicationLayout extends Component {
   render() {
@@ -16,16 +17,13 @@ class ApplicationLayout extends Component {
         <div>
           <Navbar />
         </div>
-        <div className="container-fluid infoText">
+        <div className="infoText">
           <div className="row">
-            <div className="col-4">
+            <div className="col-6">
               <CharacterInfo />
             </div>
-            <div className="col-4">
+            <div className="col-6">
               <CharacterMedia />
-            </div>
-            <div className="col-4">
-              <CharacterInfo />
             </div>
           </div>
         </div>

@@ -8,18 +8,26 @@ class CharacterMedia extends Component {
   render() {
     return (
       <div>
-        <div className="w-100 h-100 my-5">
+        <div>
           {!this.props.isLoaded ? (
-            <div className="w-100">
-              <p>Loading</p>
+            <div>
+              <div className="landing">
+                <div className="home-wrap">
+                  <div className="home-middle"></div>
+                </div>
+              </div>
             </div>
           ) : (
             <div>
-              <div className="container">
-                <img
-                  src={this.props.mediaData.render_url}
-                  className="renderImg rounded img-thumbnail mx-auto"
-                />
+              <div className="landing">
+                <div className="home-wrap">
+                  <div className="home-middle">
+                    <img
+                      src={this.props.mediaData.render_url}
+                      className="renderImg"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           )}
