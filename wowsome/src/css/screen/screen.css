@@ -27,11 +27,11 @@
 
 body {
     font-family: 'Josefin Sans', cursive;
-    background-image: url("https://i.pinimg.com/originals/aa/8a/88/aa8a8820d2da4f82eb8c36bc9ed259c3.png");
+    background-color: #043f65;
+    background-image: url("https://vignette.wikia.nocookie.net/wowwiki/images/e/ee/WoW_Companion_App_icon-Google_Play.png/revision/latest?cb=20180815210611");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
-
 }
 
 .characterInfoBG {
@@ -51,73 +51,8 @@ body {
 }
 
 .renderImg {
-    height: 100%;
+    height: 87.9vh;
     width: 100%;
     object-fit: cover;
     opacity: 0.9;
-}
-
-.landing {
-    position: relative;
-    width: 100%;
-    height: 87.9vh;
-    /* Change height of landing page image. */
-    z-index: -1;
-}
-
-.home-wrap {
-    clip: rect(0, auto, auto, 0);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.home-left {
-    position: relative;
-    /* Change to relative to remove fixed style. */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center center;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    will-change: transform;
-    background: lightslategrey;
-    opacity: 0.9;
-}
-
-.home-middle {
-    position: relative;
-    /* Change to relative to remove fixed style. */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center center;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    will-change: transform;
-    background-image: url("https://wallpaperplay.com/walls/full/e/a/7/41179.jpg");
-    opacity: 0.9;
-}
-
-.home-right {
-    position: relative;
-    /* Change to relative to remove fixed style. */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center center;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    will-change: transform;
-    background-image: url("https://www.pcgamesn.com/wp-content/uploads/2019/08/classic-wow-professions-best-header-900x506.jpg");
-
 }

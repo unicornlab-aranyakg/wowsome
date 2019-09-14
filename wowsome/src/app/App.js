@@ -19,11 +19,11 @@ class ApplicationLayout extends Component {
         </div>
         <div className="infoText">
           <div className="row">
-            <div className="col-6">
-              <CharacterInfo />
-            </div>
-            <div className="col-6">
+            <div className="col-sm-12 col-md-12 col-lg-6">
               <CharacterMedia />
+            </div>
+            <div className="col-sm-12 col-md-12 col-lg-6">
+              <CharacterInfo />
             </div>
           </div>
         </div>

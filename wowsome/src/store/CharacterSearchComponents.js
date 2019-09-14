@@ -4,6 +4,7 @@ const regionSelectionRealmChangedType = "REALM_CHANGED";
 const characterNameChangedType = "CHARACTER_NAME_CHANGED";
 const characterDataReceivedType = "CHARACTER_DATA_RECEIVED";
 const characterMediaReceivedType = "MEDIA_IS_RECEIVED";
+const CORSURL = "https://cors-anywhere.herokuapp.com/";
 
 export const initialState = {
   type: initialStateType,
@@ -28,7 +29,7 @@ export const actionCreators = {
     console.log("INPUT", input);
     try {
       const url =
-        "https://cors-anywhere.herokuapp.com/https://eu.api.blizzard.com/profile/wow/character/" +
+      CORSURL + "https://eu.api.blizzard.com/profile/wow/character/" +
         input.CharacterSearchComponents.realm +
         "/" +
         input.CharacterSearchComponents.characterName +
@@ -37,6 +38,7 @@ export const actionCreators = {
       console.log(url);
       fetch(url)
         .then(function(results) {
+          console.log("results");
           return results.json();
         })
         .then(function(json) {
@@ -58,6 +60,7 @@ export const actionCreators = {
         })
         .then(function(json) {
           //Seconday calls here
+          console.log(json);
           input.getCharacterMediaData(json, input.OAuth.access_token);
         });
     } catch (E) {
