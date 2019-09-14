@@ -11,24 +11,14 @@ class CharacterMedia extends Component {
         <div>
           {!this.props.isLoaded ? (
             <div>
-              <div className="landing">
-                <div className="home-wrap">
-                  <div className="home-middle"></div>
-                </div>
-              </div>
+              <div className="landing renderImg"></div>
             </div>
           ) : (
             <div>
-              <div className="landing">
-                <div className="home-wrap">
-                  <div className="home-middle">
-                    <img
-                      src={this.props.mediaData.render_url}
-                      className="renderImg"
-                    />
-                  </div>
-                </div>
-              </div>
+              <img
+                src={this.props.mediaData.render_url}
+                className="renderImg"
+              />
             </div>
           )}
         </div>
