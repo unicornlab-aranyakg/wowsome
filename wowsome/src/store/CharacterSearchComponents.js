@@ -16,7 +16,7 @@ export const initialState = {
   realm: "kilrogg",
   characterName: "alchemy",
   regionList: { option1: "eu", option2: "us" },
-  realmList: { option1: "kilrogg", option2: "runetotem", option3: "nagrand" }
+  realmList: ["kilrogg", "runetotem", "nagrand"]
 };
 /*
   Using https://cors-anywhere.herokuapp.com/ to get around CORS.
@@ -29,7 +29,8 @@ export const actionCreators = {
     console.log("INPUT", input);
     try {
       const url =
-      CORSURL + "https://eu.api.blizzard.com/profile/wow/character/" +
+        CORSURL +
+        "https://eu.api.blizzard.com/profile/wow/character/" +
         input.CharacterSearchComponents.realm +
         "/" +
         input.CharacterSearchComponents.characterName +

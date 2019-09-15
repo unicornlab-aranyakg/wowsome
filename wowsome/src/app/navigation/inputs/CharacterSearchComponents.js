@@ -1,10 +1,29 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import { bindActionCreators, compose } from "redux";
 import { actionCreators } from "../../../store/CharacterSearchComponents";
+import {
+  firebaseConnect,
+  firestoreConnect,
+  isLoaded,
+  isEmpty
+} from "react-redux-firebase";
 
 class CharacterSearchComponents extends Component {
   render() {
+    const RealmOptions = params => {
+      const options = params.params.realms.realm.map(realm => (
+        <option key={realm}>{realm}</option>
+      ));
+      return options;
+    };
+    const RegionOptions = params => {
+      const options = params.params.regions.region.map(region => (
+        <option key={region}>{region}</option>
+      ));
+      return options;
+    };
+
     return (
       <div className="collapse navbar-collapse" id="navbarSearchToggler">
         <ul className="navbar-nav mx-auto">
@@ -19,12 +38,13 @@ class CharacterSearchComponents extends Component {
                 this.props.setRegionData(event.target.value);
               }}
             >
-              <option>
-                {this.props.CharacterSearchComponents.regionList.option1}
-              </option>
-              <option>
-                {this.props.CharacterSearchComponents.regionList.option2}
-              </option>
+              {!this.props.Firestore.data.searchFields ? (
+                <option>Hello</option>
+              ) : (
+                <RegionOptions
+                  params={this.props.Firestore.data.searchFields}
+                />
+              )}
             </select>
           </li>
           <li className="nav-item">
@@ -36,15 +56,11 @@ class CharacterSearchComponents extends Component {
                 this.props.setRealmData(event.target.value);
               }}
             >
-              <option>
-                {this.props.CharacterSearchComponents.realmList.option1}
-              </option>
-              <option>
-                {this.props.CharacterSearchComponents.realmList.option2}
-              </option>
-              <option>
-                {this.props.CharacterSearchComponents.realmList.option3}
-              </option>
+              {!this.props.Firestore.data.searchFields ? (
+                <option>Whoopsie!</option>
+              ) : (
+                <RealmOptions params={this.props.Firestore.data.searchFields} />
+              )}
             </select>
           </li>
           <li className="nav-item">
@@ -76,7 +92,11 @@ class CharacterSearchComponents extends Component {
   }
 }
 
-export default connect(
-  state => state,
-  dispatch => bindActionCreators(actionCreators, dispatch)
+export default compose(
+  connect(
+    state => state,
+    dispatch => bindActionCreators(actionCreators, dispatch)
+  ),
+  firebaseConnect(),
+  firestoreConnect(["searchFields"])
 )(CharacterSearchComponents);
