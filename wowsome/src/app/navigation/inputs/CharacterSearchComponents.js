@@ -9,19 +9,58 @@ import {
   isEmpty
 } from "react-redux-firebase";
 
+const initialStateType = "CHAR::INITIAL_STATE";
+
 class CharacterSearchComponents extends Component {
+  componentWillReceiveProps() {
+    if (
+      this.props.Firestore.data.searchFields &&
+      this.props.CharacterSearchComponents.type == initialStateType
+    ) {
+      this.props.setSearchData(this.props.Firestore.data.searchFields);
+    }
+  }
+
   render() {
     const RealmOptions = params => {
-      const options = params.params.realms.realm.map(realm => (
-        <option key={realm}>{realm}</option>
-      ));
-      return options;
+      return (
+        <select
+          className="form-control box-adjust"
+          id="realm"
+          onChange={event => {
+            this.props.setRealmData(event.target.value);
+          }}
+          value={params.params.realm}
+        >
+          {this.props.CharacterSearchComponents.type == initialStateType ? (
+            <option>Choose...</option>
+          ) : (
+            params.params.realmList.realm.map(realm => (
+              <option key={realm}>{realm}</option>
+            ))
+          )}
+        </select>
+      );
     };
     const RegionOptions = params => {
-      const options = params.params.regions.region.map(region => (
-        <option key={region}>{region}</option>
-      ));
-      return options;
+      return (
+        <select
+          className="form-control box-adjust"
+          id="region"
+          onChange={event => {
+            this.props.setRegionData(event.target.value);
+          }}
+          value={params.params.region}
+        >
+          {this.props.CharacterSearchComponents.type == initialStateType ? (
+            <option>Choose...</option>
+          ) : (
+            params.params.regionList.region.map(region => (
+              <option key={region}>{region}</option>
+            ))
+          )}
+        </select>
+      );
     };
 
     return (
@@ -31,37 +70,19 @@ class CharacterSearchComponents extends Component {
             <label htmlFor="region" className="control-label">
               Region:
             </label>
-            <select
-              className="form-control box-adjust"
-              id="region"
-              onChange={event => {
-                this.props.setRegionData(event.target.value);
-              }}
-            >
-              {!this.props.Firestore.data.searchFields ? (
-                <option>Hello</option>
-              ) : (
-                <RegionOptions
-                  params={this.props.Firestore.data.searchFields}
-                />
-              )}
-            </select>
+            {this.props.CharacterSearchComponents.type == initialStateType ? (
+              <option>Choose...</option>
+            ) : (
+              <RegionOptions params={this.props.CharacterSearchComponents} />
+            )}
           </li>
           <li className="nav-item">
             <label htmlFor="realm">Realm:</label>
-            <select
-              className="form-control box-adjust"
-              id="realm"
-              onChange={event => {
-                this.props.setRealmData(event.target.value);
-              }}
-            >
-              {!this.props.Firestore.data.searchFields ? (
-                <option>Whoopsie!</option>
-              ) : (
-                <RealmOptions params={this.props.Firestore.data.searchFields} />
-              )}
-            </select>
+            {this.props.CharacterSearchComponents.type == initialStateType ? (
+              <option>Choose...</option>
+            ) : (
+              <RealmOptions params={this.props.CharacterSearchComponents} />
+            )}
           </li>
           <li className="nav-item">
             <label htmlFor="characterName">Character Name:</label>
@@ -91,7 +112,7 @@ class CharacterSearchComponents extends Component {
     );
   }
 }
-
+// Most cruical part is here. searchFields is the name of the collection.
 export default compose(
   connect(
     state => state,
